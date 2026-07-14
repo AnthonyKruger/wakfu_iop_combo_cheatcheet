@@ -1,0 +1,965 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17131d">
+  <title>WAKFU Iop Combo Cheatsheet</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #110f15;
+      --panel: rgba(32, 27, 40, 0.94);
+      --panel-2: rgba(43, 35, 53, 0.92);
+      --border: rgba(224, 190, 103, 0.34);
+      --gold: #e2c16d;
+      --gold-soft: #f3d991;
+      --text: #f7f2e8;
+      --muted: #bcb2c7;
+      --ap: #ce5aff;
+      --mp: #63d774;
+      --wp: #e7c95f;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.38);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% -10%, rgba(120, 64, 145, 0.25), transparent 38rem),
+        radial-gradient(circle at 95% 8%, rgba(218, 139, 42, 0.13), transparent 34rem),
+        linear-gradient(180deg, #17131d 0%, var(--bg) 62%, #0d0b10 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+
+    main {
+      width: min(1400px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 10px 0 8px;
+      position: relative;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 13px 22px 15px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: linear-gradient(135deg, rgba(49, 39, 61, 0.96), rgba(24, 20, 30, 0.96));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      right: -80px;
+      top: -100px;
+      border: 1px solid rgba(226, 193, 109, 0.22);
+      border-radius: 50%;
+      box-shadow: 0 0 0 34px rgba(226, 193, 109, 0.03), 0 0 0 68px rgba(226, 193, 109, 0.02);
+    }
+
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--gold-soft);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.3rem, 2.7vw, 1.75rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      z-index: 1;
+    }
+
+    .stat {
+      min-width: 90px;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.23);
+      text-align: center;
+      box-shadow: inset 0 1px rgba(255,255,255,0.04);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+    }
+
+    .ui-icon {
+      display: inline-block;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .element-icon {
+      width: 21px;
+      height: 21px;
+      vertical-align: -5px;
+      margin-right: 0;
+    }
+
+    .stat-icon {
+      width: 27px;
+      height: 27px;
+      margin: 0 auto 6px;
+    }
+
+    .combo-table {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .mode-panel {
+      display: none;
+    }
+
+    .combo-row {
+      min-width: 0;
+      margin-top: 15px;
+    }
+
+    .combo-row-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 0 10px;
+      padding: 0 2px 5px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .combo-row-head h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.25rem;
+      line-height: 1.1;
+    }
+
+    .combo-row-head .cost-string {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 750;
+      line-height: 1.15;
+    }
+
+    .combo-row-head .cost-string .resource-token {
+      gap: 4px;
+    }
+
+    .combo-row-head .cost-string .resource-token img {
+      width: 25px;
+      height: 25px;
+    }
+
+    .combo-row-head .cost-string .resource-label {
+      font-size: 0.72em;
+    }
+
+    .element-combos {
+      display: flex;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .combo-card {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid rgba(255,255,255,0.095);
+      border-radius: 3px;
+      background: linear-gradient(145deg, var(--panel-2), var(--panel));
+      box-shadow: 0 12px 32px rgba(0,0,0,0.24);
+      position: relative;
+    }
+
+    .combo-card {
+      padding: 4px 8px 5px;
+    }
+
+    .combo-card--air { border-top-color: rgba(134, 70, 145, 0.55); }
+    .combo-card--fire { border-top-color: rgba(224, 104, 54, 0.55); }
+    .combo-card--earth { border-top-color: rgba(167, 233, 87, 0.55); }
+
+    .combo-card--air .card-head h3 { color: #c9d2ff; }
+    .combo-card--fire .card-head h3 { color: #ffc3a4; }
+    .combo-card--earth .card-head h3 { color: #d3eab5; }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 0 0 25px;
+      gap: 0;
+      margin-bottom: 0;
+    }
+
+    .card-head h3 {
+      margin: 0;
+      font-size: 0.78rem;
+      letter-spacing: 0.01em;
+    }
+
+    .cost-string {
+      color: var(--muted);
+      font-size: 0.77rem;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .resource-token {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      vertical-align: -2px;
+      white-space: nowrap;
+    }
+
+    .resource-token img {
+      width: 15px;
+      height: 15px;
+    }
+
+    .resource-label {
+      font-size: 0.82em;
+      letter-spacing: 0.015em;
+      opacity: 0.9;
+    }
+
+    .cost .resource-token {
+      gap: 2px;
+    }
+
+    .cost .resource-token img {
+      width: 14px;
+      height: 14px;
+    }
+
+    .cost .resource-label {
+      font-size: 0.76em;
+    }
+
+    .sequence {
+      display: flex;
+      align-items: center;
+      flex: 1 1 auto;
+      gap: 0;
+      overflow: visible;
+      padding: 1px 2px;
+    }
+
+    .spell {
+      min-width: 76px;
+      text-align: center;
+    }
+
+    .icon-wrap {
+      width: 76px;
+      height: 76px;
+      margin: 0 auto;
+      display: grid;
+      place-items: center;
+      background: rgba(0,0,0,0.28);
+      box-shadow: inset 0 0 18px rgba(255,255,255,0.035), 0 5px 13px rgba(0,0,0,0.28);
+      position: relative;
+    }
+
+    .icon-wrap img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      image-rendering: auto;
+    }
+
+    .cost {
+      position: absolute;
+      right: -7px;
+      bottom: -7px;
+      min-width: 38px;
+      height: 27px;
+      padding: 0 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      border: 2px solid #231d2a;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      color: white;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+    }
+
+    .cost.ap { background: #9a3ac8; }
+    .cost.mp { background: #2f9c48; }
+    .cost.wp { background: #ad8c25; }
+    .cost.mix { background: #9b6a24; font-size: 0.64rem; min-width: 48px; }
+
+    .spell-name {
+      display: block;
+      margin-top: 10px;
+      color: #eee7f1;
+      font-size: 0.69rem;
+      line-height: 1.2;
+    }
+
+    .cost,
+    .spell-name {
+      display: none;
+    }
+
+    .icon-wrap[data-tooltip] {
+      cursor: help;
+    }
+
+    .icon-wrap[data-tooltip]::before,
+    .icon-wrap[data-tooltip]::after {
+      position: absolute;
+      left: 50%;
+      z-index: 20;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 120ms ease, transform 120ms ease;
+    }
+
+    .icon-wrap[data-tooltip]::before {
+      content: "";
+      bottom: calc(100% + 3px);
+      border: 5px solid transparent;
+      border-top-color: var(--gold);
+      transform: translate(-50%, 4px);
+    }
+
+    .icon-wrap[data-tooltip]::after {
+      content: attr(data-tooltip);
+      bottom: calc(100% + 13px);
+      max-width: 260px;
+      padding: 7px 9px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #17131d;
+      color: var(--text);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.46);
+      font-size: 0.74rem;
+      font-weight: 750;
+      line-height: 1.25;
+      text-align: center;
+      white-space: nowrap;
+      transform: translate(-50%, 4px);
+    }
+
+    .icon-wrap[data-tooltip]:hover::before,
+    .icon-wrap[data-tooltip]:hover::after,
+    .icon-wrap[data-tooltip]:focus-visible::before,
+    .icon-wrap[data-tooltip]:focus-visible::after {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .icon-wrap[data-tooltip]:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .arrow {
+      width: 14px;
+      flex: 0 0 14px;
+      padding-top: 0;
+      color: var(--gold);
+      font-size: 1.25rem;
+      line-height: 1;
+      opacity: 0.82;
+      flex: 0 0 auto;
+    }
+
+    .rotation-note {
+      margin: 17px 0 0;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .legend span {
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.055);
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .legend b { color: white; }
+
+    @media (max-width: 760px) {
+      main { width: min(100% - 18px, 680px); padding-top: 9px; }
+      .hero { padding: 13px 16px 15px; }
+      .stats { justify-content: flex-start; }
+      .combo-row-head { align-items: flex-start; flex-direction: column; gap: 3px; }
+      .element-combos {
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scroll-snap-type: x proximity;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(226, 193, 109, 0.42) transparent;
+      }
+      .element-combos::-webkit-scrollbar { height: 5px; }
+      .element-combos::-webkit-scrollbar-track { background: transparent; }
+      .element-combos::-webkit-scrollbar-thumb { background: rgba(226, 193, 109, 0.42); border-radius: 999px; }
+      .combo-card { flex: 0 0 480px; scroll-snap-align: start; }
+      .combo-card { border-radius: 15px; }
+    }
+
+    @media print {
+      body { background: white; color: #111; }
+      body::before { display: none; }
+      main { width: 100%; padding: 0; }
+      .hero, .combo-card { background: white; color: #111; box-shadow: none; break-inside: avoid; }
+      .cost-string, .rotation-note { color: #444; }
+      .combo-row { break-inside: avoid; }
+      .element-combos { gap: 8px; }
+      .combo-card { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <h1>WAKFU Iop Combo Cheatsheet</h1>
+    </header>
+
+    <section class="mode-panel" id="air-panel" role="tabpanel" aria-labelledby="air-tab">
+      <div class="section-title">
+        <h2><img class="heading-icon ui-icon" src="assets/images/icons/air.webp" alt="" onerror="this.hidden=true">Air Combos</h2>
+      <p>Cast each sequence in order.</p>
+    </div>
+
+    <section class="combo-grid" aria-label="Iop air combos">
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>Health Steal Combo</h3>
+          <span class="cost-string">1 MP 3 AP 3 AP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/guttingGust.webp" alt="Gutting Gust"><span class="cost mp">1 MP</span></div>
+            <span class="spell-name">Gutting Gust</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/swordOfIop.png" alt="Sword of Iop"><span class="cost ap">3 AP</span></div>
+            <span class="spell-name">Sword of Iop</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/swordOfIop.png" alt="Sword of Iop"><span class="cost ap">3 AP</span></div>
+            <span class="spell-name">Sword of Iop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>Pushback Combo</h3>
+          <span class="cost-string">1 AP 1 AP 2 AP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/flurry.webp" alt="Flurry"><span class="cost ap">1 AP</span></div>
+            <span class="spell-name">Flurry</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/flurry.webp" alt="Flurry"><span class="cost ap">1 AP</span></div>
+            <span class="spell-name">Flurry</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/wallop.png" alt="Wallop"><span class="cost ap">2 AP</span></div>
+            <span class="spell-name">Wallop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>Preparation Combo</h3>
+          <span class="cost-string">1 MP 1 MP 1 WP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/guttingGust.webp" alt="Gutting Gust"><span class="cost mp">1 MP</span></div>
+            <span class="spell-name">Gutting Gust</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/guttingGust.webp" alt="Gutting Gust"><span class="cost mp">1 MP</span></div>
+            <span class="spell-name">Gutting Gust</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/uppercut.png" alt="Uppercut"><span class="cost wp">1 WP</span></div>
+            <span class="spell-name">Uppercut</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>Extra Damage Combo</h3>
+          <span class="cost-string">2 AP 1 AP 1 MP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/wallop.png" alt="Wallop"><span class="cost ap">2 AP</span></div>
+            <span class="spell-name">Wallop</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/flurry.webp" alt="Flurry"><span class="cost ap">1 AP</span></div>
+            <span class="spell-name">Flurry</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/guttingGust.webp" alt="Gutting Gust"><span class="cost mp">1 MP</span></div>
+            <span class="spell-name">Gutting Gust</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>AP Combo</h3>
+          <span class="cost-string">1 WP 3 AP 1 WP 1 AP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/uppercut.png" alt="Uppercut"><span class="cost wp">1 WP</span></div>
+            <span class="spell-name">Uppercut</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/swordOfIop.png" alt="Sword of Iop"><span class="cost ap">3 AP</span></div>
+            <span class="spell-name">Sword of Iop</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/uppercut.png" alt="Uppercut"><span class="cost wp">1 WP</span></div>
+            <span class="spell-name">Uppercut</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/judgement.png" alt="Judgement"><span class="cost ap">1 AP</span></div>
+            <span class="spell-name">Judgement</span>
+          </div>
+        </div>
+      </article>
+      </section>
+    </section>
+
+    <section class="mode-panel" id="fire-panel" role="tabpanel" aria-labelledby="fire-tab" hidden>
+      <div class="section-title">
+        <h2><img class="heading-icon ui-icon" src="assets/images/icons/fire.webp" alt="" onerror="this.hidden=true">Fire Combos</h2>
+        <p>Fire spell examples for the same five combo inputs.</p>
+      </div>
+
+      <section class="combo-grid" aria-label="Iop fire combos">
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>Health Steal Combo</h3>
+          <span class="cost-string">1 MP → 3 AP → 3 AP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/guttingGust.webp" alt="Gutting Gust"><span class="cost mp">1 MP</span></div>
+            <span class="spell-name">Gutting Gust</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/thunderBolt.png" alt="Thunderbolt"><span class="cost ap">3 AP</span></div>
+            <span class="spell-name">Thunderbolt</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/thunderBolt.png" alt="Thunderbolt"><span class="cost ap">3 AP</span></div>
+            <span class="spell-name">Thunderbolt</span>
+          </div>
+        </div>
+      </article>
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>Pushback Combo</h3>
+          <span class="cost-string">1 AP → 1 AP → 2 AP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/judgement.png" alt="Judgment"><span class="cost ap">1 AP</span></div>
+            <span class="spell-name">Judgment</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/judgement.png" alt="Judgment"><span class="cost ap">1 AP</span></div>
+            <span class="spell-name">Judgment</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/celestialSword.png" alt="Celestial Sword"><span class="cost ap">2 AP</span></div>
+            <span class="spell-name">Celestial Sword</span>
+          </div>
+        </div>
+      </article>
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>Preparation Combo</h3>
+          <span class="cost-string">1 MP → 1 MP → 1 WP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/guttingGust.webp" alt="Gutting Gust"><span class="cost mp">1 MP</span></div>
+            <span class="spell-name">Gutting Gust</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/guttingGust.webp" alt="Gutting Gust"><span class="cost mp">1 MP</span></div>
+            <span class="spell-name">Gutting Gust</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/uppercut.png" alt="Uppercut"><span class="cost wp">1 WP</span></div>
+            <span class="spell-name">Uppercut</span>
+          </div>
+        </div>
+      </article>
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>Extra Damage Combo</h3>
+          <span class="cost-string">2 AP → 1 AP → 1 MP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/celestialSword.png" alt="Celestial Sword"><span class="cost ap">2 AP</span></div>
+            <span class="spell-name">Celestial Sword</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/judgement.png" alt="Judgment"><span class="cost ap">1 AP</span></div>
+            <span class="spell-name">Judgment</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/guttingGust.webp" alt="Gutting Gust"><span class="cost mp">1 MP</span></div>
+            <span class="spell-name">Gutting Gust</span>
+          </div>
+        </div>
+      </article>
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>AP Combo</h3>
+          <span class="cost-string">1 WP → 3 AP → 1 WP → 1 AP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/uppercut.png" alt="Uppercut"><span class="cost wp">1 WP</span></div>
+            <span class="spell-name">Uppercut</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/thunderBolt.png" alt="Thunderbolt"><span class="cost ap">3 AP</span></div>
+            <span class="spell-name">Thunderbolt</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/uppercut.png" alt="Uppercut"><span class="cost wp">1 WP</span></div>
+            <span class="spell-name">Uppercut</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/judgement.png" alt="Judgment"><span class="cost ap">1 AP</span></div>
+            <span class="spell-name">Judgment</span>
+          </div>
+        </div>
+      </article>
+      </section>
+    </section>
+
+    <section class="mode-panel" id="earth-panel" role="tabpanel" aria-labelledby="earth-tab" hidden>
+      <div class="section-title">
+        <h2><img class="heading-icon ui-icon" src="assets/images/icons/earth.webp" alt="" onerror="this.hidden=true">Earth Combos</h2>
+        <p>Earth spell examples for the same five combo inputs.</p>
+      </div>
+
+      <section class="combo-grid" aria-label="Iop earth combos">
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>Health Steal Combo</h3>
+          <span class="cost-string">1 MP → 3 AP → 3 AP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/guttingGust.webp" alt="Gutting Gust"><span class="cost mp">1 MP</span></div>
+            <span class="spell-name">Gutting Gust</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/cleaver.webp" alt="Cleaver"><span class="cost ap">3 AP</span></div>
+            <span class="spell-name">Cleaver</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/cleaver.webp" alt="Cleaver"><span class="cost ap">3 AP</span></div>
+            <span class="spell-name">Cleaver</span>
+          </div>
+        </div>
+      </article>
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>Pushback Combo</h3>
+          <span class="cost-string">1 AP → 1 AP → 2 AP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/charge.png" alt="Charge at 1-cell range"><span class="cost ap">1 AP*</span></div>
+            <span class="spell-name">Charge (adjacent)</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/charge.png" alt="Charge at 1-cell range"><span class="cost ap">1 AP*</span></div>
+            <span class="spell-name">Charge (adjacent)</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/shaker.webp" alt="Shaker"><span class="cost ap">2 AP</span></div>
+            <span class="spell-name">Shaker</span>
+          </div>
+        </div>
+      </article>
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>Preparation Combo</h3>
+          <span class="cost-string">1 MP → 1 MP → 1 WP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/guttingGust.webp" alt="Gutting Gust"><span class="cost mp">1 MP</span></div>
+            <span class="spell-name">Gutting Gust</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/guttingGust.webp" alt="Gutting Gust"><span class="cost mp">1 MP</span></div>
+            <span class="spell-name">Gutting Gust</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/uppercut.png" alt="Uppercut"><span class="cost wp">1 WP</span></div>
+            <span class="spell-name">Uppercut</span>
+          </div>
+        </div>
+      </article>
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>Extra Damage Combo</h3>
+          <span class="cost-string">2 AP → 1 AP → 1 MP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/shaker.webp" alt="Shaker"><span class="cost ap">2 AP</span></div>
+            <span class="spell-name">Shaker</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/charge.png" alt="Charge at 1-cell range"><span class="cost ap">1 AP*</span></div>
+            <span class="spell-name">Charge (adjacent)</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/guttingGust.webp" alt="Gutting Gust"><span class="cost mp">1 MP</span></div>
+            <span class="spell-name">Gutting Gust</span>
+          </div>
+        </div>
+      </article>
+      <article class="combo-card">
+        <div class="card-head">
+          <h3>AP Combo</h3>
+          <span class="cost-string">1 WP → 3 AP → 1 WP → 1 AP</span>
+        </div>
+        <div class="sequence">
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/uppercut.png" alt="Uppercut"><span class="cost wp">1 WP</span></div>
+            <span class="spell-name">Uppercut</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/cleaver.webp" alt="Cleaver"><span class="cost ap">3 AP</span></div>
+            <span class="spell-name">Cleaver</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/neutral/uppercut.png" alt="Uppercut"><span class="cost wp">1 WP</span></div>
+            <span class="spell-name">Uppercut</span>
+          </div>
+          <span class="arrow" aria-hidden="true">›</span>
+          <div class="spell">
+            <div class="icon-wrap"><img src="assets/images/elemental/charge.png" alt="Charge at 1-cell range"><span class="cost ap">1 AP*</span></div>
+            <span class="spell-name">Charge (adjacent)</span>
+          </div>
+        </div>
+      </article>
+      </section>
+
+      <p class="rotation-note"><strong>* Charge:</strong> its AP cost varies with distance. These examples use Charge on an adjacent target, where it supplies the 1 AP step.</p>
+    </section>
+
+  </main>
+
+  <script>
+    (() => {
+      const resourceIcons = {
+        AP: 'assets/images/icons/ap.webp',
+        MP: 'assets/images/icons/mp.webp',
+        WP: 'assets/images/icons/wp.webp'
+      };
+
+      const elements = [
+        { key: 'air', label: 'Air', panelId: 'air-panel', icon: 'assets/images/icons/air.webp' },
+        { key: 'fire', label: 'Fire', panelId: 'fire-panel', icon: 'assets/images/icons/fire.webp' },
+        { key: 'earth', label: 'Earth', panelId: 'earth-panel', icon: 'assets/images/icons/earth.webp' }
+      ];
+
+      const panels = elements.map((element) => document.getElementById(element.panelId));
+      const cardsByElement = panels.map((panel) => [...panel.querySelectorAll('.combo-card')]);
+      const comboTable = document.createElement('section');
+      comboTable.className = 'combo-table';
+      comboTable.setAttribute('aria-label', 'Iop elemental combo comparison');
+
+      cardsByElement[0].forEach((airCard, index) => {
+        const comboName = airCard.querySelector('.card-head h3').textContent.trim();
+        const comboCost = airCard.querySelector('.cost-string').textContent.trim();
+        const row = document.createElement('section');
+        const rowHead = document.createElement('header');
+        const title = document.createElement('h2');
+        const cost = document.createElement('span');
+        const elementCombos = document.createElement('div');
+
+        row.className = 'combo-row';
+        rowHead.className = 'combo-row-head';
+        elementCombos.className = 'element-combos';
+        title.textContent = comboName;
+        cost.className = 'cost-string';
+        cost.textContent = comboCost;
+        rowHead.append(title, cost);
+
+        elements.forEach((element, elementIndex) => {
+          const card = cardsByElement[elementIndex][index];
+          const cardTitle = card.querySelector('.card-head h3');
+          const oldCost = card.querySelector('.cost-string');
+          const icon = document.createElement('img');
+
+          icon.className = 'element-icon ui-icon';
+          icon.src = element.icon;
+          icon.alt = element.label;
+          icon.title = element.label;
+          icon.addEventListener('error', () => { icon.hidden = true; });
+          cardTitle.replaceChildren(icon);
+          oldCost.remove();
+          card.classList.add(`combo-card--${element.key}`);
+          card.setAttribute('aria-label', `${element.label} ${comboName}`);
+          elementCombos.append(card);
+        });
+
+        row.append(rowHead, elementCombos);
+        comboTable.append(row);
+      });
+
+      panels[0].before(comboTable);
+      panels.forEach((panel) => panel.remove());
+
+      document.querySelectorAll('.arrow').forEach((arrow) => {
+        arrow.textContent = '→';
+      });
+
+      document.querySelectorAll('.spell').forEach((spell) => {
+        const icon = spell.querySelector('.icon-wrap');
+        const spellName = spell.querySelector('.spell-name').textContent.trim();
+        const spellCost = spell.querySelector('.cost').textContent.trim();
+        const variableCostNote = spellName.startsWith('Charge') ? ' · cost varies with distance' : '';
+        const tooltip = `${spellName} · ${spellCost}${variableCostNote}`;
+
+        icon.dataset.tooltip = tooltip;
+        icon.setAttribute('aria-label', tooltip);
+        icon.tabIndex = 0;
+      });
+
+      function decorateResourceText(element) {
+        const text = element.textContent.trim();
+        element.innerHTML = text.replace(/(\d+)\s*(AP|MP|WP)/g, (_, amount, resource) => (
+          `<span class="resource-token"><span>${amount}</span><img class="ui-icon" src="${resourceIcons[resource]}" alt="${resource}" title="${resource}" onerror="this.hidden=true"></span>`
+        ));
+      }
+
+      document.querySelectorAll('.cost-string').forEach(decorateResourceText);
+    })();
+  </script>
+</body>
+</html>

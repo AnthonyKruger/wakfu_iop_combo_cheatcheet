@@ -763,17 +763,33 @@
       .stats { justify-content: flex-start; }
       .combo-row-head { align-items: flex-start; flex-direction: column; gap: 3px; }
       .element-combos {
-        overflow-x: auto;
-        padding-bottom: 8px;
-        scroll-snap-type: x proximity;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(226, 193, 109, 0.42) transparent;
+        flex-direction: column;
+        overflow: visible;
+        padding-bottom: 0;
+        scroll-snap-type: none;
       }
-      .element-combos::-webkit-scrollbar { height: 5px; }
-      .element-combos::-webkit-scrollbar-track { background: transparent; }
-      .element-combos::-webkit-scrollbar-thumb { background: rgba(226, 193, 109, 0.42); border-radius: 999px; }
-      .combo-card { flex: 0 0 480px; scroll-snap-align: start; }
-      .combo-card { border-radius: 15px; }
+      .combo-card {
+        --mobile-combo-icon: clamp(51px, 15.5vw, 62px);
+        flex: 1 1 auto;
+        width: 100%;
+        border-radius: 15px;
+        scroll-snap-align: none;
+      }
+      .combo-card .sequence { min-width: 0; }
+      .combo-card .spell { min-width: var(--mobile-combo-icon); }
+      .combo-card .icon-wrap {
+        width: var(--mobile-combo-icon);
+        height: var(--mobile-combo-icon);
+      }
+      .combo-card .icon-wrap img {
+        width: calc(var(--mobile-combo-icon) - 6px);
+        height: calc(var(--mobile-combo-icon) - 6px);
+      }
+      .combo-card .arrow {
+        width: 10px;
+        flex: 0 0 10px;
+        font-size: 1rem;
+      }
       .mechanic-strip,
       .rotation-grid,
       .mini-rotation-grid,
@@ -933,8 +949,8 @@
           </div>
           <span class="arrow" aria-hidden="true">›</span>
           <div class="spell">
-            <div class="icon-wrap"><img src="assets/images/elemental/judgement.png" alt="Judgement"><span class="cost ap">1 AP</span></div>
-            <span class="spell-name">Judgement</span>
+            <div class="icon-wrap"><img src="assets/images/elemental/flurry.webp" alt="Flurry"><span class="cost ap">1 AP</span></div>
+            <span class="spell-name">Flurry</span>
           </div>
         </div>
       </article>

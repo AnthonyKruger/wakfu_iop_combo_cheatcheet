@@ -104,6 +104,51 @@
       text-transform: uppercase;
     }
 
+    .view-tabs {
+      display: flex;
+      gap: 6px;
+      padding: 4px;
+      border: 1px solid rgba(255,255,255,0.11);
+      border-radius: 3px;
+      background: rgba(0,0,0,0.25);
+      position: relative;
+      z-index: 1;
+    }
+
+    .view-tab {
+      appearance: none;
+      min-width: 108px;
+      padding: 7px 13px;
+      border: 1px solid transparent;
+      border-radius: 2px;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .view-tab:hover,
+    .view-tab:focus-visible {
+      color: var(--text);
+      border-color: rgba(226, 193, 109, 0.25);
+      outline: none;
+    }
+
+    .view-tab[aria-selected="true"] {
+      color: #17131d;
+      border-color: var(--gold-soft);
+      background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+      box-shadow: 0 4px 14px rgba(0,0,0,0.28);
+    }
+
+    .cheatsheet-view[hidden] {
+      display: none;
+    }
+
     .stats {
       display: flex;
       flex-wrap: wrap;
@@ -416,6 +461,261 @@
       outline-offset: 2px;
     }
 
+    .rotations-view {
+      margin-top: 14px;
+    }
+
+    .mechanic-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .mechanic-chip,
+    .rotation-card,
+    .situational-panel {
+      border: 1px solid rgba(255,255,255,0.095);
+      border-radius: 3px;
+      background: linear-gradient(145deg, var(--panel-2), var(--panel));
+      box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+    }
+
+    .mechanic-chip {
+      min-width: 0;
+    }
+
+    .mechanic-chip summary,
+    .situational-panel > summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .mechanic-chip summary::-webkit-details-marker,
+    .situational-panel > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mechanic-chip summary {
+      padding: 10px 12px;
+    }
+
+    .mechanic-chip h2 {
+      margin: 0 0 3px;
+      color: var(--gold-soft);
+      font-size: 0.78rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .mechanic-chip p,
+    .mechanic-detail {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.35;
+    }
+
+    .mechanic-chip summary::after {
+      content: "+";
+      float: right;
+      margin: -18px 0 0 8px;
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .mechanic-chip[open] summary::after {
+      content: "−";
+    }
+
+    .mechanic-detail {
+      padding: 8px 12px 11px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .rotation-section-title {
+      margin: 13px 2px 7px;
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 850;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .rotation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .rotation-card {
+      min-width: 0;
+      padding: 10px 12px 11px;
+    }
+
+    .rotation-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .rotation-card h3 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.02rem;
+      line-height: 1.15;
+    }
+
+    .rotation-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 4px;
+    }
+
+    .rotation-tag {
+      padding: 2px 6px;
+      border: 1px solid rgba(226, 193, 109, 0.2);
+      border-radius: 999px;
+      background: rgba(226, 193, 109, 0.07);
+      color: var(--gold-soft);
+      font-size: 0.58rem;
+      font-weight: 850;
+      letter-spacing: 0.055em;
+      white-space: nowrap;
+    }
+
+    .rotation-use {
+      margin: 5px 0 8px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.3;
+    }
+
+    .rotation-sequence {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      min-width: 0;
+      padding: 2px 0 5px;
+    }
+
+    .rotation-sequence .spell {
+      min-width: 42px;
+    }
+
+    .rotation-sequence .icon-wrap {
+      width: 42px;
+      height: 42px;
+    }
+
+    .rotation-sequence .icon-wrap img {
+      width: 38px;
+      height: 38px;
+    }
+
+    .rotation-sequence .arrow {
+      width: 10px;
+      flex-basis: 10px;
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .rotation-card-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 7px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .rotation-cost {
+      flex: 0 0 auto;
+      color: var(--text);
+      font-size: 0.72rem;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .rotation-cost .resource-token img {
+      width: 16px;
+      height: 16px;
+    }
+
+    .rotation-condition {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.7rem;
+      line-height: 1.25;
+      text-align: right;
+    }
+
+    .situational-panel {
+      margin-top: 12px;
+    }
+
+    .situational-panel > summary {
+      padding: 9px 12px;
+      color: var(--gold-soft);
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .situational-panel > summary::after {
+      content: "+";
+      float: right;
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    .situational-panel[open] > summary::after {
+      content: "−";
+    }
+
+    .situational-content {
+      padding: 0 10px 10px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .mini-rotation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .mini-rotation-grid .rotation-card {
+      box-shadow: none;
+    }
+
+    .rule-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 9px;
+    }
+
+    .rule-chip {
+      padding: 7px 9px;
+      border: 1px solid rgba(255,255,255,0.075);
+      background: rgba(0,0,0,0.17);
+      color: var(--muted);
+      font-size: 0.68rem;
+      line-height: 1.3;
+    }
+
+    .rule-chip strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--text);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
     .arrow {
       width: 14px;
       flex: 0 0 14px;
@@ -455,7 +755,9 @@
 
     @media (max-width: 760px) {
       main { width: min(100% - 18px, 680px); padding-top: 9px; }
-      .hero { padding: 13px 16px 15px; }
+      .hero { align-items: stretch; flex-direction: column; padding: 13px 16px 15px; }
+      .view-tabs { align-self: stretch; }
+      .view-tab { flex: 1 1 0; min-width: 0; }
       .stats { justify-content: flex-start; }
       .combo-row-head { align-items: flex-start; flex-direction: column; gap: 3px; }
       .element-combos {
@@ -470,6 +772,20 @@
       .element-combos::-webkit-scrollbar-thumb { background: rgba(226, 193, 109, 0.42); border-radius: 999px; }
       .combo-card { flex: 0 0 480px; scroll-snap-align: start; }
       .combo-card { border-radius: 15px; }
+      .mechanic-strip,
+      .rotation-grid,
+      .mini-rotation-grid,
+      .rule-strip { grid-template-columns: 1fr; }
+      .rotation-card-head,
+      .rotation-card-foot { align-items: flex-start; flex-direction: column; }
+      .rotation-tags { justify-content: flex-start; }
+      .rotation-condition { text-align: left; }
+      .rotation-sequence {
+        overflow-x: auto;
+        padding-top: 4px;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(226, 193, 109, 0.42) transparent;
+      }
     }
 
     @media print {
@@ -488,6 +804,10 @@
   <main>
     <header class="hero">
       <h1>WAKFU Iop Combo Cheatsheet</h1>
+      <nav class="view-tabs" role="tablist" aria-label="Cheatsheet view">
+        <button class="view-tab" id="combos-tab" type="button" role="tab" aria-controls="combos-view" aria-selected="true" data-view="combos-view">Combos</button>
+        <button class="view-tab" id="rotations-tab" type="button" role="tab" aria-controls="rotations-view" aria-selected="false" data-view="rotations-view" tabindex="-1">Rotations</button>
+      </nav>
     </header>
 
     <section class="mode-panel" id="air-panel" role="tabpanel" aria-labelledby="air-tab">
@@ -887,10 +1207,143 @@
         { key: 'earth', label: 'Earth', panelId: 'earth-panel', icon: 'assets/images/icons/earth.webp' }
       ];
 
+      const spellBook = {
+        'Gutting Gust': ['assets/images/neutral/guttingGust.webp', 'Gutting Gust · 1 MP · combo tool · inherits last element'],
+        'Uppercut': ['assets/images/neutral/uppercut.png', 'Uppercut · 1 WP · combo tool · +10 Concentration'],
+        'Thunderbolt': ['assets/images/elemental/thunderBolt.png', 'Thunderbolt · 3 AP · Lost · +15 Concentration'],
+        'Judgment': ['assets/images/elemental/judgement.png', 'Judgment · 1 AP · next Fire hit +15% · +5 Concentration'],
+        'Super Iop Punch': ['assets/images/elemental/superIopPunch.png', 'Super Iop Punch · 4 AP · +2 AP on kill · +20 Concentration'],
+        'Celestial Sword': ['assets/images/elemental/celestialSword.png', 'Celestial Sword · 2 AP · +25% damage above 65% HP · +10 Concentration'],
+        'Increase': ['assets/images/neutral/increase.png', 'Increase · 2 MP + 2 WP · damage buff + MP'],
+        'Devastate': ['assets/images/elemental/devastate.webp', 'Devastate · 5 AP · teleport/AoE · +25 Conc, +5 per target'],
+        "Iop's Wrath": ['assets/images/elemental/IopsWrath.png', "Iop's Wrath · 6 AP + 1 WP · surrounding AoE · Lost · +40 Concentration"],
+        'Cleaver': ['assets/images/elemental/cleaver.webp', 'Cleaver · 3 AP · armor + Block · +15 Concentration'],
+        'Bravery Standard': ['assets/images/neutral/braveryStandard.png', 'Bravery Standard · 2/3 AP · resistance aura / teleport / WP recovery'],
+        'Stance': ['assets/images/neutral/stance.webp', 'Stance · 2 AP + 1 WP · effect follows last element'],
+        'Sword of Iop': ['assets/images/elemental/swordOfIop.png', 'Sword of Iop · 3 AP · ally damage inflicted +10% · +15 Concentration'],
+        'Virtue': ['assets/images/neutral/virtue.webp', 'Virtue · 2 AP + 1 WP · 20% max-HP heal around Iop + Standard'],
+        'Focus': ['assets/images/neutral/focus.png', 'Focus · 2 AP · stabilize, -50 resistance, anti-heal/armor'],
+        'Shaker': ['assets/images/elemental/shaker.webp', 'Shaker · 2 AP · armor damage taken +30% · +10 Concentration'],
+        'Rocknoceros': ['assets/images/elemental/rocknoceros.png', 'Rocknoceros · 4 AP · penetrates/removes armor · +20 Concentration'],
+        'Jabs': ['assets/images/elemental/jabs.webp', 'Jabs · 3 AP · +25 Concentration'],
+        'Hour of Glory': ['assets/images/neutral/hourOfGlory.png', 'Hour of Glory · 3 AP · ranged mode for one turn']
+      };
+
+      const mechanics = [
+        {
+          title: 'Power',
+          visible: 'End adjacent to an enemy or near your Standard. Do not finish isolated.',
+          detail: 'Iop starts with Power. Ending in melee or near/on Bravery Standard maintains the damage bonus; ending far from both loses it.'
+        },
+        {
+          title: 'Concentration',
+          visible: 'Build to 100, then align the Preparation spike with a heavy finisher.',
+          detail: 'Elemental spells and completed combos build Concentration. At 100, recover WP and line the Preparation spike up with a 4 AP finisher.'
+        },
+        {
+          title: 'Combo chaining',
+          visible: 'The last Uppercut of Preparation also starts the AP Combo.',
+          detail: 'Shared chain: 1 MP → 1 MP → 1 WP → 3 AP → 1 WP → 1 AP. AP Combo supplies 2 AP, enabling 13 gross AP from an 11 AP turn.'
+        }
+      ];
+
+      const rotations = [
+        {
+          group: 'core',
+          title: 'Default Opener',
+          tags: ['GENERAL', 'PREP + AP'],
+          use: 'Safe default: chain Preparation and AP Combo, then spend the bonus AP on Fire damage.',
+          steps: ['Gutting Gust', 'Gutting Gust', 'Uppercut', 'Thunderbolt', 'Uppercut', 'Judgment', 'Super Iop Punch', 'Thunderbolt', 'Celestial Sword'],
+          cost: '11 AP net · 2 MP · 2 WP',
+          note: 'Judgment primes SIP; replace only the final spells if positioning fails.',
+          detail: 'The shared Uppercut completes Preparation and begins AP Combo. AP Combo supplies 2 AP, turning 13 gross AP into an 11 AP net turn.'
+        },
+        {
+          group: 'core',
+          title: '100 Concentration Fire Nuke',
+          tags: ['MAX BURST', '100 CONC'],
+          use: 'Use at 100 Concentration when the target is ready and Increase is available.',
+          steps: ['Increase', 'Thunderbolt', 'Judgment', 'Super Iop Punch', 'Thunderbolt'],
+          cost: '11 AP · 2 MP · 2 WP',
+          note: 'SIP kill: regain 2 AP and add Celestial Sword.',
+          detail: 'Increase buffs damage, Thunderbolt applies Lost, Judgment boosts the next Fire hit, and SIP receives the Concentration spike. SIP does not refund Concentration on kill.'
+        },
+        {
+          group: 'core',
+          title: 'AoE Clear',
+          tags: ['AOE', 'MOB CLEAR', 'HIGH WP'],
+          use: 'Enter the pack, then detonate Earth and Fire AoE around the Iop.',
+          steps: ['Increase', 'Devastate', "Iop's Wrath"],
+          cost: '11 AP · 2 MP · 3 WP',
+          note: 'Devastate first for its teleport; reverse only when already centred.',
+          detail: 'Increase supplies the buff, Devastate teleports into the cluster, and Wrath delivers surrounding Fire AoE plus Lost.'
+        },
+        {
+          group: 'utility',
+          title: 'Sustain / Armor',
+          tags: ['HEAL', 'ARMOR', 'AOE'],
+          use: 'Trigger Health Steal, build armor with Cleaver, then spend the remainder on Devastate.',
+          steps: ['Gutting Gust', 'Cleaver', 'Cleaver', 'Devastate'],
+          cost: '11 AP · 1 MP',
+          note: 'Single target: replace Devastate with Judgment → SIP.',
+          detail: 'The second Cleaver completes Health Steal. Cleaver adds armor and Block; Devastate adds mobility, AoE, and Concentration.'
+        },
+        {
+          group: 'utility',
+          title: 'Tank / Hold',
+          tags: ['TANK', 'STANDARD', 'DEFENSIVE'],
+          use: 'Establish the Standard, heal through Cleaver damage, then finish in Defensive Stance.',
+          steps: ['Bravery Standard', 'Gutting Gust', 'Cleaver', 'Cleaver', 'Stance'],
+          cost: '11 AP · 1 MP · 1 WP',
+          note: 'End near or on the Standard; spend recast savings on utility.',
+          detail: 'Assumes Standard costs 3 AP on an empty cell. Cleaver is the last elemental spell before Stance, producing Defensive Stance.'
+        },
+        {
+          group: 'utility',
+          title: 'Team Support',
+          tags: ['TEAM', 'HEAL', 'STANDARD'],
+          use: 'Establish both buff centres, stack ally damage, then heal around the Iop and Standard.',
+          steps: ['Bravery Standard', 'Increase', 'Sword of Iop', 'Sword of Iop', 'Virtue'],
+          cost: '11 AP · 2 MP · 3 WP',
+          note: 'No healing needed: replace Virtue with Focus.',
+          detail: 'Increase and Sword of Iop stack ally damage. Virtue heals around both the Iop and Standard; Focus is the priority-target alternative.'
+        }
+      ];
+
+      const situationalRotations = [
+        {
+          title: 'Anti-Armor Boss',
+          tags: ['BOSS', 'ARMOR BREAK'],
+          use: 'Focus lowers resistance while Shaker and Rocknoceros strip armor.',
+          steps: ['Focus', 'Shaker', 'Rocknoceros', 'Jabs'],
+          cost: '11 AP',
+          note: 'At 100 Concentration, make Rocknoceros the 4 AP bomb.',
+          detail: 'Rocknoceros damages HP while removing equal armor. Shaker amplifies armor loss before it lands.'
+        },
+        {
+          title: 'Ranged Emergency',
+          tags: ['RANGED', 'SITUATIONAL'],
+          use: 'Use only when melee access is unsafe or impossible.',
+          steps: ['Hour of Glory', 'Thunderbolt', 'Thunderbolt', 'Celestial Sword'],
+          cost: '11 AP',
+          note: 'Hour of Glory enables ranged elemental spells for the turn.',
+          detail: 'Hour of Glory converts melee mastery and extends elemental spell range for this turn.'
+        }
+      ];
+
+      const situationalRules = [
+        ['SIP kill', 'Kill with SIP → +2 AP → add Celestial Sword. No Concentration refund.'],
+        ['Charge', 'Costs 1–4 AP by distance; its actual cost can satisfy a matching combo step.'],
+        ['Combo interruption', 'Insert large finishers between tracked steps; watch the in-game combo tracker.']
+      ];
+
       const panels = elements.map((element) => document.getElementById(element.panelId));
       const cardsByElement = panels.map((panel) => [...panel.querySelectorAll('.combo-card')]);
       const comboTable = document.createElement('section');
-      comboTable.className = 'combo-table';
+      comboTable.className = 'combo-table cheatsheet-view';
+      comboTable.id = 'combos-view';
+      comboTable.setAttribute('role', 'tabpanel');
+      comboTable.setAttribute('aria-labelledby', 'combos-tab');
       comboTable.setAttribute('aria-label', 'Iop elemental combo comparison');
 
       cardsByElement[0].forEach((airCard, index) => {
@@ -932,14 +1385,152 @@
         comboTable.append(row);
       });
 
+      function createSpellSequence(stepNames) {
+        const sequence = document.createElement('div');
+        sequence.className = 'rotation-sequence';
+
+        stepNames.forEach((name, index) => {
+          const [src, tooltip] = spellBook[name];
+          const spell = document.createElement('div');
+          const iconWrap = document.createElement('div');
+          const icon = document.createElement('img');
+
+          spell.className = 'spell';
+          iconWrap.className = 'icon-wrap';
+          iconWrap.dataset.tooltip = tooltip;
+          iconWrap.setAttribute('aria-label', tooltip);
+          iconWrap.title = tooltip;
+          iconWrap.tabIndex = 0;
+          icon.src = src;
+          icon.alt = '';
+          icon.addEventListener('error', () => { icon.hidden = true; });
+          iconWrap.append(icon);
+          spell.append(iconWrap);
+          sequence.append(spell);
+
+          if (index < stepNames.length - 1) {
+            const arrow = document.createElement('span');
+            arrow.className = 'arrow';
+            arrow.setAttribute('aria-hidden', 'true');
+            arrow.textContent = '→';
+            sequence.append(arrow);
+          }
+        });
+
+        return sequence;
+      }
+
+      function createRotationCard(rotation) {
+        const card = document.createElement('article');
+        const head = document.createElement('header');
+        const title = document.createElement('h3');
+        const tags = document.createElement('div');
+        const use = document.createElement('p');
+        const foot = document.createElement('footer');
+        const cost = document.createElement('span');
+        const condition = document.createElement('p');
+
+        card.className = 'rotation-card';
+        head.className = 'rotation-card-head';
+        tags.className = 'rotation-tags';
+        use.className = 'rotation-use';
+        foot.className = 'rotation-card-foot';
+        cost.className = 'rotation-cost cost-string';
+        condition.className = 'rotation-condition';
+        title.textContent = rotation.title;
+        title.title = rotation.detail;
+        title.tabIndex = 0;
+        use.textContent = rotation.use;
+        cost.textContent = rotation.cost;
+        condition.textContent = rotation.note;
+
+        rotation.tags.forEach((tagText) => {
+          const tag = document.createElement('span');
+          tag.className = 'rotation-tag';
+          tag.textContent = tagText;
+          tags.append(tag);
+        });
+
+        head.append(title, tags);
+        foot.append(cost, condition);
+        card.append(head, use, createSpellSequence(rotation.steps), foot);
+        return card;
+      }
+
+      const rotationsView = document.createElement('section');
+      const mechanicStrip = document.createElement('div');
+      rotationsView.className = 'rotations-view cheatsheet-view';
+      rotationsView.id = 'rotations-view';
+      rotationsView.hidden = true;
+      rotationsView.setAttribute('role', 'tabpanel');
+      rotationsView.setAttribute('aria-labelledby', 'rotations-tab');
+      mechanicStrip.className = 'mechanic-strip';
+
+      mechanics.forEach((mechanic) => {
+        const chip = document.createElement('details');
+        const summary = document.createElement('summary');
+        const title = document.createElement('h2');
+        const visible = document.createElement('p');
+        const detail = document.createElement('p');
+        chip.className = 'mechanic-chip';
+        title.textContent = mechanic.title;
+        visible.textContent = mechanic.visible;
+        detail.className = 'mechanic-detail';
+        detail.textContent = mechanic.detail;
+        summary.append(title, visible);
+        chip.append(summary, detail);
+        mechanicStrip.append(chip);
+      });
+
+      rotationsView.append(mechanicStrip);
+
+      [
+        ['core', 'Core damage'],
+        ['utility', 'Utility']
+      ].forEach(([group, label]) => {
+        const heading = document.createElement('h2');
+        const grid = document.createElement('div');
+        heading.className = 'rotation-section-title';
+        heading.textContent = label;
+        grid.className = 'rotation-grid';
+        rotations.filter((rotation) => rotation.group === group).forEach((rotation) => {
+          grid.append(createRotationCard(rotation));
+        });
+        rotationsView.append(heading, grid);
+      });
+
+      const situationalPanel = document.createElement('details');
+      const situationalSummary = document.createElement('summary');
+      const situationalContent = document.createElement('div');
+      const miniGrid = document.createElement('div');
+      const ruleStrip = document.createElement('div');
+      situationalPanel.className = 'situational-panel';
+      situationalSummary.textContent = 'Situational rotations & rules';
+      situationalContent.className = 'situational-content';
+      miniGrid.className = 'mini-rotation-grid';
+      ruleStrip.className = 'rule-strip';
+      situationalRotations.forEach((rotation) => miniGrid.append(createRotationCard(rotation)));
+      situationalRules.forEach(([titleText, copy]) => {
+        const rule = document.createElement('div');
+        const title = document.createElement('strong');
+        title.textContent = titleText;
+        rule.className = 'rule-chip';
+        rule.append(title, document.createTextNode(copy));
+        ruleStrip.append(rule);
+      });
+      situationalContent.append(miniGrid, ruleStrip);
+      situationalPanel.append(situationalSummary, situationalContent);
+      rotationsView.append(situationalPanel);
+
       panels[0].before(comboTable);
+      comboTable.after(rotationsView);
       panels.forEach((panel) => panel.remove());
 
       document.querySelectorAll('.arrow').forEach((arrow) => {
         arrow.textContent = '→';
       });
 
-      document.querySelectorAll('.spell').forEach((spell) => {
+      comboTable.querySelectorAll('.spell').forEach((spell) => {
         const icon = spell.querySelector('.icon-wrap');
         const spellName = spell.querySelector('.spell-name').textContent.trim();
         const spellCost = spell.querySelector('.cost').textContent.trim();
@@ -959,6 +1550,51 @@
       }
 
       document.querySelectorAll('.cost-string').forEach(decorateResourceText);
+
+      const viewTabs = [...document.querySelectorAll('.view-tab')];
+      const views = [comboTable, rotationsView];
+
+      function activateView(viewId, focus = false) {
+        viewTabs.forEach((tab) => {
+          const active = tab.dataset.view === viewId;
+          tab.setAttribute('aria-selected', String(active));
+          tab.tabIndex = active ? 0 : -1;
+          if (active && focus) tab.focus();
+        });
+
+        views.forEach((view) => {
+          view.hidden = view.id !== viewId;
+        });
+
+        try {
+          localStorage.setItem('iop-cheatsheet-view', viewId);
+        } catch (error) {
+          // The page still works when local storage is unavailable.
+        }
+      }
+
+      viewTabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => activateView(tab.dataset.view));
+        tab.addEventListener('keydown', (event) => {
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+          event.preventDefault();
+          let nextIndex = index;
+          if (event.key === 'ArrowLeft') nextIndex = (index - 1 + viewTabs.length) % viewTabs.length;
+          if (event.key === 'ArrowRight') nextIndex = (index + 1) % viewTabs.length;
+          if (event.key === 'Home') nextIndex = 0;
+          if (event.key === 'End') nextIndex = viewTabs.length - 1;
+          activateView(viewTabs[nextIndex].dataset.view, true);
+        });
+      });
+
+      let initialView = 'combos-view';
+      try {
+        const savedView = localStorage.getItem('iop-cheatsheet-view');
+        if (views.some((view) => view.id === savedView)) initialView = savedView;
+      } catch (error) {
+        // Use the default view when local storage is unavailable.
+      }
+      activateView(initialView);
     })();
   </script>
 </body>

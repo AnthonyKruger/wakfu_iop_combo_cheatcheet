@@ -29,6 +29,8 @@
     body {
       margin: 0;
       min-height: 100vh;
+      -webkit-user-select: none;
+      user-select: none;
       background:
         radial-gradient(circle at 15% -10%, rgba(120, 64, 145, 0.25), transparent 38rem),
         radial-gradient(circle at 95% 8%, rgba(218, 139, 42, 0.13), transparent 34rem),
@@ -474,8 +476,7 @@
     }
 
     .mechanic-chip,
-    .rotation-card,
-    .situational-panel {
+    .rotation-card {
       border: 1px solid rgba(255,255,255,0.095);
       border-radius: 3px;
       background: linear-gradient(145deg, var(--panel-2), var(--panel));
@@ -484,20 +485,6 @@
 
     .mechanic-chip {
       min-width: 0;
-    }
-
-    .mechanic-chip summary,
-    .situational-panel > summary {
-      list-style: none;
-      cursor: pointer;
-    }
-
-    .mechanic-chip summary::-webkit-details-marker,
-    .situational-panel > summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .mechanic-chip summary {
       padding: 10px 12px;
     }
 
@@ -509,29 +496,11 @@
       text-transform: uppercase;
     }
 
-    .mechanic-chip p,
-    .mechanic-detail {
+    .mechanic-chip p {
       margin: 0;
       color: var(--muted);
       font-size: 0.76rem;
       line-height: 1.35;
-    }
-
-    .mechanic-chip summary::after {
-      content: "+";
-      float: right;
-      margin: -18px 0 0 8px;
-      color: var(--gold);
-      font-weight: 900;
-    }
-
-    .mechanic-chip[open] summary::after {
-      content: "−";
-    }
-
-    .mechanic-detail {
-      padding: 8px 12px 11px;
-      border-top: 1px solid rgba(255,255,255,0.08);
     }
 
     .rotation-section-title {
@@ -653,40 +622,10 @@
       text-align: right;
     }
 
-    .situational-panel {
-      margin-top: 12px;
-    }
-
-    .situational-panel > summary {
-      padding: 9px 12px;
-      color: var(--gold-soft);
-      font-size: 0.72rem;
-      font-weight: 850;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .situational-panel > summary::after {
-      content: "+";
-      float: right;
-      color: var(--gold);
-      font-size: 1rem;
-    }
-
-    .situational-panel[open] > summary::after {
-      content: "−";
-    }
-
-    .situational-content {
-      padding: 0 10px 10px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
     .mini-rotation-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
-      margin-top: 10px;
     }
 
     .mini-rotation-grid .rotation-card {
@@ -1485,18 +1424,16 @@
       mechanicStrip.className = 'mechanic-strip';
 
       mechanics.forEach((mechanic) => {
-        const chip = document.createElement('details');
-        const summary = document.createElement('summary');
+        const chip = document.createElement('article');
         const title = document.createElement('h2');
         const visible = document.createElement('p');
-        const detail = document.createElement('p');
         chip.className = 'mechanic-chip';
+        chip.title = mechanic.detail;
+        chip.tabIndex = 0;
+        chip.setAttribute('aria-label', `${mechanic.title}. ${mechanic.visible} ${mechanic.detail}`);
         title.textContent = mechanic.title;
         visible.textContent = mechanic.visible;
-        detail.className = 'mechanic-detail';
-        detail.textContent = mechanic.detail;
-        summary.append(title, visible);
-        chip.append(summary, detail);
+        chip.append(title, visible);
         mechanicStrip.append(chip);
       });
 
@@ -1517,14 +1454,11 @@
         rotationsView.append(heading, grid);
       });
 
-      const situationalPanel = document.createElement('details');
-      const situationalSummary = document.createElement('summary');
-      const situationalContent = document.createElement('div');
+      const situationalHeading = document.createElement('h2');
       const miniGrid = document.createElement('div');
       const ruleStrip = document.createElement('div');
-      situationalPanel.className = 'situational-panel';
-      situationalSummary.textContent = 'Situational rotations & rules';
-      situationalContent.className = 'situational-content';
+      situationalHeading.className = 'rotation-section-title';
+      situationalHeading.textContent = 'Situational rotations & rules';
       miniGrid.className = 'mini-rotation-grid';
       ruleStrip.className = 'rule-strip';
       situationalRotations.forEach((rotation) => miniGrid.append(createRotationCard(rotation)));
@@ -1536,9 +1470,7 @@
         rule.append(title, document.createTextNode(copy));
         ruleStrip.append(rule);
       });
-      situationalContent.append(miniGrid, ruleStrip);
-      situationalPanel.append(situationalSummary, situationalContent);
-      rotationsView.append(situationalPanel);
+      rotationsView.append(situationalHeading, miniGrid, ruleStrip);
 
       panels[0].before(comboTable);
       comboTable.after(rotationsView);

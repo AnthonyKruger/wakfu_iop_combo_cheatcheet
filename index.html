@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#17131d">
-  <title>WAKFU Iop Combo Cheatsheet</title>
+  <title>WAKFU Iop Cheatsheet</title>
   <style>
     :root {
       color-scheme: dark;
@@ -433,7 +433,8 @@
     .icon-wrap[data-tooltip]::after {
       content: attr(data-tooltip);
       bottom: calc(100% + 13px);
-      max-width: 260px;
+      width: max-content;
+      max-width: min(320px, calc(100vw - 32px));
       padding: 7px 9px;
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -444,7 +445,8 @@
       font-weight: 750;
       line-height: 1.25;
       text-align: center;
-      white-space: nowrap;
+      white-space: normal;
+      overflow-wrap: anywhere;
       transform: translate(-50%, 4px);
     }
 
@@ -803,7 +805,7 @@
 <body>
   <main>
     <header class="hero">
-      <h1>WAKFU Iop Combo Cheatsheet</h1>
+      <h1>WAKFU Iop Cheatsheet</h1>
       <nav class="view-tabs" role="tablist" aria-label="Cheatsheet view">
         <button class="view-tab" id="combos-tab" type="button" role="tab" aria-controls="combos-view" aria-selected="true" data-view="combos-view">Combos</button>
         <button class="view-tab" id="rotations-tab" type="button" role="tab" aria-controls="rotations-view" aria-selected="false" data-view="rotations-view" tabindex="-1">Rotations</button>
